@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ArchFieldwork3</string>
+    <string name="button_add_site">Add Site</string>
+    <string name="site_name">Name of Site</string>
+    <string name="site_description">Site Description</string>
+
 </resources>
