@@ -1,4 +1,4 @@
-package org.wit.archfieldwork3
+package org.wit.archfieldwork3.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -6,8 +6,13 @@ import kotlinx.android.synthetic.main.activity_archfieldwork.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
+import org.wit.archfieldwork3.R
+import org.wit.archfieldwork3.models.SiteModel
 
 class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
+
+    var site = SiteModel()
+    val sites = ArrayList<SiteModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,10 +20,13 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
         info("ArchFieldwork started...")
 
         btnAddSite.setOnClickListener(){
-            val siteName = siteName.text.toString()
-            val siteDiscription = siteDescription.text.toString()
-            if (siteName.isNotEmpty()|| siteDiscription.isNotEmpty()){
+            site.name=siteName.text.toString()
+            site.description = siteDescription.text.toString()
+            if (site.name.isNotEmpty()&& site.description.isNotEmpty()){
+                sites.add(site.copy())
                 toast("add site pressed: Name and Discription done")
+                info("add Button pressed: $siteName, $siteDescription")
+                sites.forEach {info ("add Button Pressed: {$it.site}")}
             }else{
                 toast("please Enter a Name and Discription")
             }
