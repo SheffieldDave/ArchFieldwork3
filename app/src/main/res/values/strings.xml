@@ -1,7 +1,14 @@
 <resources>
     <string name="app_name">ArchFieldwork3</string>
     <string name="button_add_site">Add Site</string>
+    <string name="button_add_image">Add Image</string>
     <string name="site_name">Name of Site</string>
     <string name="site_description">Site Description</string>
+    <string name="toolbar_up">Up</string>
+    <string name="toolbar_logout">Logout</string>
+    <string name="toolbar_add">Add</string>
+    <string name="toolbar_Cancel">Cancel</string>
+    <string name="toolbar_Delete">Delete</string>
+    <string name="toolbar_Settings">Settings</string>
 
 </resources>
