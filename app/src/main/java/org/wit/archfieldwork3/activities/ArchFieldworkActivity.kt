@@ -14,6 +14,7 @@ class ArchFieldworkActivity : AppCompatActivity() {
 
     var site = SiteModel()
     lateinit var app : MainApp
+    var edit = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,17 +29,28 @@ class ArchFieldworkActivity : AppCompatActivity() {
         btnAddSite.setOnClickListener(){
             site.name=siteName.text.toString()
             site.description = siteDescription.text.toString()
-            if (site.name.isNotEmpty()&& site.description.isNotEmpty()){
-                app.sites.create(site.copy())
-                //toast("add site pressed: Name and Discription done")
+            if (site.name.isEmpty()) {
+                toast(R.string.enter_site_name_discription)
+            }else{
+                if (edit){
+                    app.sites.update(site.copy())
+                }else{
+                    app.sites.create(site.copy())
+                }
                 //info("add Button pressed: $siteName, $siteDescription")
-                //app.sites.findAll().forEach {info ("add Button Pressed: {$it.site}")}
                 setResult(AppCompatActivity.RESULT_OK)
                 finish()
-            }else{
-                toast("please Enter a Name and Discription")
             }
         }
+
+        if(intent.hasExtra("site_edit")){
+            edit = true
+            site = intent.extras.getParcelable<SiteModel>("site_edit")
+            siteName.setText(site.name)
+            siteDescription.setText(site.description)
+            btnAddSite.setText(R.string.save_site)
+        }
+
 
         btnAddImage.setOnClickListener(){
                 toast("add Image pressed")

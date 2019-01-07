@@ -10,5 +10,7 @@
     <string name="menu_cancelSite">Cancel</string>
     <string name="menu_deleteSite">Delete</string>
     <string name="menu_settings">Settings</string>
+    <string name="enter_site_name_discription">Please enter a Site Name and Discription</string>
+    <string name="save_site">Save Changes</string>
 
 </resources>
