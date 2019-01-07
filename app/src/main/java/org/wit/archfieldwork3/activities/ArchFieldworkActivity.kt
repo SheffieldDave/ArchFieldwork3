@@ -1,20 +1,28 @@
 package org.wit.archfieldwork3.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_archfieldwork.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 import org.wit.archfieldwork3.R
+import org.wit.archfieldwork3.helpers.readImage
+import org.wit.archfieldwork3.helpers.readImageFromPath
+import org.wit.archfieldwork3.helpers.showImagePicker
 import org.wit.archfieldwork3.main.MainApp
 import org.wit.archfieldwork3.models.SiteModel
 
-class ArchFieldworkActivity : AppCompatActivity() {
+
+class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
 
     var site = SiteModel()
     lateinit var app : MainApp
     var edit = false
+    val IMAGE_REQUEST = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,11 +57,14 @@ class ArchFieldworkActivity : AppCompatActivity() {
             siteName.setText(site.name)
             siteDescription.setText(site.description)
             btnAddSite.setText(R.string.save_site)
+            siteImage.setImageBitmap(readImageFromPath(this, site.image))
         }
 
 
-        btnAddImage.setOnClickListener(){
-                toast("add Image pressed")
+        btnChooseImage.setOnClickListener(){
+                //toast("add Image pressed")
+            info("Select image")
+            showImagePicker(this, IMAGE_REQUEST)
         }
 
 
@@ -76,5 +87,15 @@ class ArchFieldworkActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode){
+            IMAGE_REQUEST -> {
+                if(data != null){
+                    site.image = data.getData().toString()
+                    siteImage.setImageBitmap(readImage(this, resultCode, data))
+                }
+            }
+        }
+    }
 }

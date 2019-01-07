@@ -65,7 +65,7 @@
                         android:textSize="14sp"/>
 
                 <Button
-                        android:id="@+id/btnAddImage"
+                        android:id="@+id/btnChooseImage"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_margin="16dp"
@@ -77,6 +77,11 @@
                         android:textColor="@android:color/background_light"
                         android:textSize="16sp"/>
 
+                <ImageView
+                        android:id="@+id/siteImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@mipmap/ic_launcher"/>
                 <Button
                         android:id="@+id/btnAddSite"
                         android:layout_width="match_parent"
@@ -89,6 +94,7 @@
                         android:text="@string/button_add_site"
                         android:textColor="@android:color/background_light"
                         android:textSize="16sp"/>
+
             </LinearLayout>
         </ScrollView>
 
