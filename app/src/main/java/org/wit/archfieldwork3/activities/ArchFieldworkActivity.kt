@@ -8,12 +8,14 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_archfieldwork.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 import org.wit.archfieldwork3.R
 import org.wit.archfieldwork3.helpers.readImage
 import org.wit.archfieldwork3.helpers.readImageFromPath
 import org.wit.archfieldwork3.helpers.showImagePicker
 import org.wit.archfieldwork3.main.MainApp
+import org.wit.archfieldwork3.models.Location
 import org.wit.archfieldwork3.models.SiteModel
 
 
@@ -21,17 +23,33 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
 
     var site = SiteModel()
     lateinit var app : MainApp
-    var edit = false
+
     val IMAGE_REQUEST = 1
+    val LOCATION_REQUEST = 2
+    var location = Location(49.002405, 12.097464, 15f)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_archfieldwork)
-        app = application as MainApp
-        //info("ArchFieldwork started...")
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
+
+        app = application as MainApp
+        var edit = false
+
+        if(intent.hasExtra("site_edit")){
+            edit = true
+            site = intent.extras.getParcelable<SiteModel>("site_edit")
+            siteName.setText(site.name)
+            siteDescription.setText(site.description)
+            siteImage.setImageBitmap(readImageFromPath(this, site.image))
+            if (site.image != null){
+                btnChooseImage.setText(R.string.change_site_image)
+            }
+            btnAddSite.setText(R.string.save_site)
+
+        }
 
 
         btnAddSite.setOnClickListener(){
@@ -51,17 +69,7 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
             }
         }
 
-        if(intent.hasExtra("site_edit")){
-            edit = true
-            site = intent.extras.getParcelable<SiteModel>("site_edit")
-            siteName.setText(site.name)
-            siteDescription.setText(site.description)
-            btnAddSite.setText(R.string.save_site)
-            siteImage.setImageBitmap(readImageFromPath(this, site.image))
-            if (site.image != null){
-                btnChooseImage.setText(R.string.change_site_image)
-            }
-        }
+
 
 
         btnChooseImage.setOnClickListener(){
@@ -72,6 +80,11 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
 
         btnAddLocation.setOnClickListener{
             info("set location pressed")
+            startActivity(intentFor<MapsActivity>())
+        }
+
+        btnAddLocation.setOnClickListener{
+            startActivityForResult(intentFor<MapsActivity>().putExtra("location",location), LOCATION_REQUEST)
         }
 
 
@@ -102,6 +115,11 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
                     site.image = data.getData().toString()
                     siteImage.setImageBitmap(readImage(this, resultCode, data))
                     btnChooseImage.setText(R.string.change_site_image)
+                }
+            }
+            LOCATION_REQUEST->{
+                if(data !=null){
+                    location = data.extras.getParcelable<Location>("location")
                 }
             }
         }
