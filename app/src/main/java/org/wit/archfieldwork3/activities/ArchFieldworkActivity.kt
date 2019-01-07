@@ -30,6 +30,8 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
                 toast("add site pressed: Name and Discription done")
                 info("add Button pressed: $siteName, $siteDescription")
                 app.sites.forEach {info ("add Button Pressed: {$it.site}")}
+                setResult(AppCompatActivity.RESULT_OK)
+                finish()
             }else{
                 toast("please Enter a Name and Discription")
             }
