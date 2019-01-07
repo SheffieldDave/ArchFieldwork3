@@ -27,6 +27,7 @@ class SiteMemStore: SiteStore, AnkoLogger{
         if (foundSite != null){
             foundSite.name = site.name
             foundSite.description = site.description
+            foundSite.image = site.image
             logAll()
         }
 

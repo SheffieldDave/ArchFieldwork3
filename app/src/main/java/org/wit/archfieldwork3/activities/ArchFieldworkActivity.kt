@@ -58,6 +58,9 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
             siteDescription.setText(site.description)
             btnAddSite.setText(R.string.save_site)
             siteImage.setImageBitmap(readImageFromPath(this, site.image))
+            if (site.image != null){
+                btnChooseImage.setText(R.string.change_site_image)
+            }
         }
 
 
@@ -65,6 +68,10 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
                 //toast("add Image pressed")
             info("Select image")
             showImagePicker(this, IMAGE_REQUEST)
+        }
+
+        btnAddLocation.setOnClickListener{
+            info("set location pressed")
         }
 
 
@@ -94,6 +101,7 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
                 if(data != null){
                     site.image = data.getData().toString()
                     siteImage.setImageBitmap(readImage(this, resultCode, data))
+                    btnChooseImage.setText(R.string.change_site_image)
                 }
             }
         }
