@@ -3,16 +3,18 @@ package org.wit.archfieldwork3.activities
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_site_list.*
-import kotlinx.android.synthetic.main.card_site.view.*
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
 import org.wit.archfieldwork3.R
+import org.wit.archfieldwork3.adapters.ArchFieldworkAdapter
+import org.wit.archfieldwork3.adapters.SiteListener
 import org.wit.archfieldwork3.main.MainApp
 import org.wit.archfieldwork3.models.SiteModel
 
-class SiteListActivity : AppCompatActivity() {
+class SiteListActivity : AppCompatActivity(), SiteListener {
 
     lateinit var app:MainApp
 
@@ -26,7 +28,7 @@ class SiteListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = ArchFieldworkAdapter(app.sites)
+        recyclerView.adapter = ArchFieldworkAdapter(app.sites.findAll(),this)
 
 
     }
@@ -42,28 +44,11 @@ class SiteListActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onSiteClick(site: SiteModel) {
+        startActivityForResult(intentFor<ArchFieldworkActivity>(),0)
+    }
+
 }
 
-class ArchFieldworkAdapter constructor(private var sites: List<SiteModel>): RecyclerView.Adapter<ArchFieldworkAdapter.MainHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.card_site,parent,false))
-    }
-
-    override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val site = sites[holder.adapterPosition]
-        holder.bind(site)
-    }
-
-    override fun getItemCount(): Int = sites.size
-
-    class MainHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
-
-        fun bind(site: SiteModel){
-            itemView.siteName.text = site.name
-            itemView.siteDescription.text = site.description
-        }
-    }
-
-
-}

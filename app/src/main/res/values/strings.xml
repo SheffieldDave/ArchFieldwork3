@@ -7,7 +7,7 @@
     <string name="menu_up">Up</string>
     <string name="menu_logoutArchfieldwork">Logout</string>
     <string name="menu_addSite">Add</string>
-    <string name="menu_cancel">Cancel</string>
+    <string name="menu_cancelSite">Cancel</string>
     <string name="menu_deleteSite">Delete</string>
     <string name="menu_settings">Settings</string>
 
