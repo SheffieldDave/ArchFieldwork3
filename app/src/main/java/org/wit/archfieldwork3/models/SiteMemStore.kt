@@ -28,6 +28,9 @@ class SiteMemStore: SiteStore, AnkoLogger{
             foundSite.name = site.name
             foundSite.description = site.description
             foundSite.image = site.image
+            foundSite.lat = site.lat
+            foundSite.lng = site.lng
+            foundSite.zoom = site.zoom
             logAll()
         }
 

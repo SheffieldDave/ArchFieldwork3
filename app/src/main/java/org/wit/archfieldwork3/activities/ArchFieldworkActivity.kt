@@ -1,6 +1,7 @@
 package org.wit.archfieldwork3.activities
 
 import android.content.Intent
+
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -16,6 +17,7 @@ import org.wit.archfieldwork3.helpers.readImageFromPath
 import org.wit.archfieldwork3.helpers.showImagePicker
 import org.wit.archfieldwork3.main.MainApp
 import org.wit.archfieldwork3.models.Location
+
 import org.wit.archfieldwork3.models.SiteModel
 
 
@@ -26,7 +28,7 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
 
     val IMAGE_REQUEST = 1
     val LOCATION_REQUEST = 2
-    var location = Location(49.002405, 12.097464, 15f)
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,12 +80,15 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
             showImagePicker(this, IMAGE_REQUEST)
         }
 
-        btnAddLocation.setOnClickListener{
-            info("set location pressed")
-            startActivity(intentFor<MapsActivity>())
-        }
+
 
         btnAddLocation.setOnClickListener{
+            var location = Location(49.002405, 12.097464, 15f)
+            if (site.zoom != 0f){
+                location.lat =site.lat
+                location.lng = site.lng
+                location.zoom = site.zoom
+            }
             startActivityForResult(intentFor<MapsActivity>().putExtra("location",location), LOCATION_REQUEST)
         }
 
@@ -119,7 +124,10 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
             }
             LOCATION_REQUEST->{
                 if(data !=null){
-                    location = data.extras.getParcelable<Location>("location")
+                    val location = data.extras.getParcelable<org.wit.archfieldwork3.models.Location>("location")
+                    site.lat = location.lat
+                    site.lng = location.lng
+                    site.zoom = location.zoom
                 }
             }
         }
