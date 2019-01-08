@@ -7,109 +7,109 @@
         android:layout_height="match_parent"
         tools:context="org.wit.archfieldwork3.activities.ArchFieldworkActivity">
 
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/design_default_color_primary_dark"
+            android:fitsSystemWindows="true"
+            app:elevation="0dip"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <android.support.design.widget.AppBarLayout
-                android:id="@+id/appBarLayout"
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/design_default_color_primary_dark"
-                android:fitsSystemWindows="true"
-                app:elevation="0dip"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                app:titleTextColor="@color/colorWhite" />
 
-            <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbarAdd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:titleTextColor="@color/colorWhite"/>
-        </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>
 
-        <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/appBarLayout"
-                android:fillViewport="true">
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+        <EditText
+                android:id="@+id/siteName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="64dp"
+                android:ems="10"
+                android:hint="@string/hint_siteName"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-                <android.support.design.widget.TextInputEditText
-                        android:id="@+id/siteName"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="8dp"
-                        android:hint="@string/site_name"
-                        android:inputType="text"
-                        android:maxLength="25"
-                        android:maxLines="1"
-                        android:padding="8dp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp"/>
+        <EditText
+                android:id="@+id/siteDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/hint_siteDescription"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/siteName"/>
 
-                <android.support.design.widget.TextInputEditText
-                        android:id="@+id/siteDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="8dp"
-                        android:hint="@string/site_description"
-                        android:inputType="text"
-                        android:maxLength="25"
-                        android:maxLines="1"
-                        android:padding="8dp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp"/>
+        <Button
+                android:id="@+id/btnAddSite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/button_add_site"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/siteDescription"/>
 
-                <Button
-                        android:id="@+id/btnChooseImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="16dp"
-                        android:background="@color/design_default_color_primary_dark"
-                        android:paddingBottom="8dp"
-                        android:paddingTop="8dp"
-                        android:stateListAnimator="@null"
-                        android:text="@string/button_add_image"
-                        android:textColor="@android:color/background_light"
-                        android:textSize="16sp"/>
+        <Button
+                android:id="@+id/btnChooseImage"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/button_add_image"
+                app:layout_constraintStart_toStartOf="@+id/btnAddSite"
+                app:layout_constraintTop_toBottomOf="@+id/btnAddSite"/>
 
-                <ImageView
-                        android:id="@+id/siteImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@mipmap/ic_launcher"/>
-                <Button
-                        android:id="@+id/btnAddLocation"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="16dp"
-                        android:background="@color/design_default_color_primary_dark"
-                        android:paddingBottom="8dp"
-                        android:paddingTop="8dp"
-                        android:stateListAnimator="@null"
-                        android:text="@string/button_add_location"
-                        android:textColor="@android:color/background_light"
-                        android:textSize="16sp"/>
+        <Button
+                android:id="@+id/btnAddLocation"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/button_add_location"
+                app:layout_constraintEnd_toEndOf="@+id/btnAddSite"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/siteImage"
+                app:layout_constraintTop_toBottomOf="@+id/btnAddSite"/>
 
-                <Button
-                        android:id="@+id/btnAddSite"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="16dp"
-                        android:background="@color/design_default_color_primary_dark"
-                        android:paddingBottom="8dp"
-                        android:paddingTop="8dp"
-                        android:stateListAnimator="@null"
-                        android:text="@string/button_add_site"
-                        android:textColor="@android:color/background_light"
-                        android:textSize="16sp"/>
+        <ImageView
+                android:id="@+id/siteImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.555"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnAddLocation"
+                app:layout_constraintVertical_bias="0.173"
+                app:srcCompat="@drawable/ic_launcher_background"/>
 
-            </LinearLayout>
-        </ScrollView>
+    </android.support.constraint.ConstraintLayout>
 
-    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

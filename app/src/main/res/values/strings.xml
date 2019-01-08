@@ -18,6 +18,8 @@
     <string name="change_site_image">Change site Image</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_site_maps">Map of all Sites</string>
+    <string name="hint_siteName">Site Name</string>
+    <string name="hint_siteDescription">Description</string>
 
 
 </resources>
