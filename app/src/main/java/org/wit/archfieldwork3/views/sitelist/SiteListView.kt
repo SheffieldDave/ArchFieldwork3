@@ -1,4 +1,4 @@
-package org.wit.archfieldwork3.activities
+package org.wit.archfieldwork3.views.sitelist
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,12 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_site_list.*
 import org.wit.archfieldwork3.R
-import org.wit.archfieldwork3.adapters.ArchFieldworkAdapter
-import org.wit.archfieldwork3.adapters.SiteListener
+import org.wit.archfieldwork3.views.sitelist.ArchFieldworkAdapter
+import org.wit.archfieldwork3.views.sitelist.SiteListener
 import org.wit.archfieldwork3.models.SiteModel
+import org.wit.archfieldwork3.views.sitelist.SiteListPresenter
 
-class SiteListActivity : AppCompatActivity(), SiteListener {
+class SiteListView : AppCompatActivity(), SiteListener {
 
     lateinit var presenter: SiteListPresenter
 

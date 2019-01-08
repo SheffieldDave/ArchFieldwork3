@@ -1,4 +1,4 @@
-package org.wit.archfieldwork3.activities
+package org.wit.archfieldwork3.views.map
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,35 +12,37 @@ import kotlinx.android.synthetic.main.content_site_maps.*
 import org.wit.archfieldwork3.R
 import org.wit.archfieldwork3.helpers.readImageFromPath
 import org.wit.archfieldwork3.main.MainApp
+import org.wit.archfieldwork3.models.SiteModel
 
-class SiteMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
+class SiteMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
-    lateinit var map: GoogleMap
-    lateinit var app: MainApp
+    lateinit var presenter: SiteMapPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_maps)
         setSupportActionBar(toolbarMaps)
+        presenter = SiteMapPresenter(this)
 
-        app = application as MainApp
 
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync {
-            map = it
-            configureMap()
+            presenter.doPopulateMap(it)
         }
     }
 
     fun configureMap(){
-        map.uiSettings.setZoomControlsEnabled(true)
-        app.sites.findAll().forEach {
-            val loc = LatLng(it.lat,it.lng)
-            val options = MarkerOptions().title(it.name).position(loc)
-            map.addMarker(options).tag = it.id
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,it.zoom))
-            map.setOnMarkerClickListener(this)
-        }
+
+    }
+    fun showSite(site: SiteModel){
+        currentTitle.text = site.name
+        currentDescription.text = site.description
+        imageView.setImageBitmap(readImageFromPath(this, site.image))
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        presenter.doMarkerSelected(marker)
+        return true
     }
 
     override fun onDestroy() {
@@ -68,12 +70,5 @@ class SiteMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
         mapView.onSaveInstanceState(outState)
     }
 
-    override fun onMarkerClick(marker: Marker): Boolean {
-        val tag = marker.tag as Long
-        val site = app.sites.findById(tag)
-        currentTitle.text = site!!.name
-        currentDescription.text = site!!.description
-        imageView.setImageBitmap(readImageFromPath(this@SiteMapsActivity, site.image))
-        return true
-    }
+
 }

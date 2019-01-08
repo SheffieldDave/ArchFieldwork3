@@ -14,9 +14,9 @@
             android:theme="@style/AppTheme">
 
         <!-- The picture "hillford.jpg" is not Licence free -->
-        <activity android:name=".activities.ArchFieldworkActivity">
+        <activity android:name=".views.site.ArchFieldworkView">
         </activity>
-        <activity android:name=".activities.SiteListActivity">
+        <activity android:name=".views.sitelist.SiteListView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -29,11 +29,11 @@
                 android:value="@string/google_maps_key"/>
 
         <activity
-                android:name=".activities.MapsActivity"
+                android:name=".views.editlocation.EditLocationView"
                 android:label="@string/title_activity_maps">
         </activity>
         <activity
-                android:name=".activities.SiteMapsActivity"
+                android:name=".views.map.SiteMapView"
                 android:label="@string/title_activity_site_maps"
                 android:theme="@style/AppTheme">
         </activity>

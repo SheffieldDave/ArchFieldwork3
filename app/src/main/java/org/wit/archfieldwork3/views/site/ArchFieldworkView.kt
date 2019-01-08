@@ -1,4 +1,4 @@
-package org.wit.archfieldwork3.activities
+package org.wit.archfieldwork3.views.site
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,7 @@ import org.wit.archfieldwork3.helpers.readImageFromPath
 import org.wit.archfieldwork3.models.SiteModel
 
 
-class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
+class ArchFieldworkView : AppCompatActivity(), AnkoLogger {
 
 
     lateinit var presenter: ArchFieldworkPresenter

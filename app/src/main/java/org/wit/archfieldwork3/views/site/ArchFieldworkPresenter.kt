@@ -1,4 +1,4 @@
-package org.wit.archfieldwork3.activities
+package org.wit.archfieldwork3.views.site
 
 import android.content.Intent
 import org.jetbrains.anko.intentFor
@@ -6,8 +6,9 @@ import org.wit.archfieldwork3.helpers.showImagePicker
 import org.wit.archfieldwork3.main.MainApp
 import org.wit.archfieldwork3.models.Location
 import org.wit.archfieldwork3.models.SiteModel
+import org.wit.archfieldwork3.views.editlocation.EditLocationView
 
-class ArchFieldworkPresenter (val activity: ArchFieldworkActivity) {
+class ArchFieldworkPresenter (val view: ArchFieldworkView) {
 
     val IMAGE_REQUEST = 1
     val LOCATION_REQUEST = 2
@@ -17,11 +18,11 @@ class ArchFieldworkPresenter (val activity: ArchFieldworkActivity) {
     var edit = false;
 
     init {
-        app = activity.application as MainApp
-        if (activity.intent.hasExtra("site_edit")) {
+        app = view.application as MainApp
+        if (view.intent.hasExtra("site_edit")) {
             edit = true
-            site = activity.intent.extras.getParcelable<SiteModel>("site_edit")
-            activity.showSite(site)
+            site = view.intent.extras.getParcelable<SiteModel>("site_edit")
+            view.showSite(site)
         }
     }
 
@@ -33,20 +34,20 @@ class ArchFieldworkPresenter (val activity: ArchFieldworkActivity) {
         } else {
             app.sites.create(site)
         }
-        activity.finish()
+        view.finish()
     }
 
     fun doCancel() {
-        activity.finish()
+        view.finish()
     }
 
     fun doDelete() {
         app.sites.delete(site)
-        activity.finish()
+        view.finish()
     }
 
     fun doSelectImage(){
-        showImagePicker(activity, IMAGE_REQUEST)
+        showImagePicker(view, IMAGE_REQUEST)
     }
 
     fun doSetLocation(){
@@ -55,14 +56,14 @@ class ArchFieldworkPresenter (val activity: ArchFieldworkActivity) {
             location.lng = site.lng
             location.zoom = site.zoom
         }
-        activity.startActivityForResult(activity.intentFor<MapsActivity>().putExtra("location",location), LOCATION_REQUEST)
+        view.startActivityForResult(view.intentFor<EditLocationView>().putExtra("location",location), LOCATION_REQUEST)
     }
 
     fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent){
         when (requestCode){
             IMAGE_REQUEST -> {
                     site.image = data.data.toString()
-                    activity.showSite(site)
+                    view.showSite(site)
             }
             LOCATION_REQUEST->{
                     location = data.extras.getParcelable<org.wit.archfieldwork3.models.Location>("location")
