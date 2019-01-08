@@ -62,16 +62,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/siteName"/>
 
-        <Button
-                android:id="@+id/btnAddSite"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/button_add_site"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/siteDescription"/>
 
         <Button
                 android:id="@+id/btnChooseImage"
@@ -79,8 +69,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/button_add_image"
-                app:layout_constraintStart_toStartOf="@+id/btnAddSite"
-                app:layout_constraintTop_toBottomOf="@+id/btnAddSite"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/siteDescription" android:layout_marginStart="16dp"/>
 
         <Button
                 android:id="@+id/btnAddLocation"
@@ -89,10 +79,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/button_add_location"
-                app:layout_constraintEnd_toEndOf="@+id/btnAddSite"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/siteImage"
-                app:layout_constraintTop_toBottomOf="@+id/btnAddSite"/>
+                app:layout_constraintTop_toBottomOf="@+id/siteDescription" android:layout_marginEnd="16dp"/>
 
         <ImageView
                 android:id="@+id/siteImage"

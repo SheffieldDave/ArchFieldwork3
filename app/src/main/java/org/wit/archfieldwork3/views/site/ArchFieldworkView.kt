@@ -27,13 +27,13 @@ class ArchFieldworkView : AppCompatActivity(), AnkoLogger {
 
         presenter = ArchFieldworkPresenter(this)
 
-        btnAddSite.setOnClickListener {
+        /*btnAddSite.setOnClickListener {
             if (siteName.text.toString().isEmpty()) {
                 toast(R.string.enter_site_name_discription)
             } else {
                 presenter.doAddOrSave(siteName.text.toString(), siteDescription.text.toString())
             }
-        }
+        }*/
 
         btnChooseImage.setOnClickListener { presenter.doSelectImage() }
 
@@ -47,7 +47,6 @@ class ArchFieldworkView : AppCompatActivity(), AnkoLogger {
         if (site.image != null) {
             btnChooseImage.setText(R.string.change_site_image)
         }
-        btnAddSite.setText(R.string.save_site)
     }
 
 
@@ -62,8 +61,12 @@ class ArchFieldworkView : AppCompatActivity(), AnkoLogger {
             R.id.item_delete -> {
                 presenter.doDelete()
             }
-            R.id.item_cancel -> {
-                presenter.doCancel()
+            R.id.item_save -> {
+                if (siteName.text.toString().isEmpty()) {
+                    toast(R.string.enter_site_name_discription)
+                } else {
+                    presenter.doAddOrSave(siteName.text.toString(), siteDescription.text.toString())
+                }
             }
         }
         return super.onOptionsItemSelected(item)
