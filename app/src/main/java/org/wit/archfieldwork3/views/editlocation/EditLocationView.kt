@@ -6,61 +6,39 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
 import org.wit.archfieldwork3.R
-import org.wit.archfieldwork3.views.editlocation.EditLocationPresenter
 
 class EditLocationView : AppCompatActivity(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
 
-    private lateinit var map: GoogleMap
+    lateinit var map: GoogleMap
     lateinit var presenter: EditLocationPresenter
-    //var location = Location ()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map)as SupportMapFragment
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         presenter = EditLocationPresenter(this)
-        mapFragment.getMapAsync{
+        mapFragment.getMapAsync {
             map = it
             map.setOnMarkerDragListener(this)
             map.setOnMarkerClickListener(this)
-            presenter.initMap(map)
+            presenter.doConfigureMap(map)
         }
     }
 
+    override fun onMarkerDragStart(marker: Marker) {}
 
-    /*override fun onMapReady(googleMap: GoogleMap) {
-
-        val loc = LatLng(location.lat, location.lng)
-        val options = MarkerOptions()
-            .title("Site")
-            .snippet("GPS : " + loc.toString())
-            .draggable(true)
-            .position(loc)
-        map.addMarker(options)
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
-
-    }*/
-
-    override fun onMarkerDragStart(marker: Marker) {
-    }
-
-    override fun onMarkerDrag(marker: Marker) {
-    }
+    override fun onMarkerDrag(marker: Marker) {}
 
     override fun onMarkerDragEnd(marker: Marker) {
-        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude, map.cameraPosition.zoom)
-
+        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude)
     }
 
     override fun onBackPressed() {
-        presenter.doOnBackPressed()
-
+        presenter.doSave()
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
         presenter.doUpdateMarker(marker)
-
-
         return false
     }
 }

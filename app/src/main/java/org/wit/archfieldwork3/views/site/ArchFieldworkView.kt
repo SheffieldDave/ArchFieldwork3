@@ -2,7 +2,6 @@ package org.wit.archfieldwork3.views.site
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_archfieldwork.*
@@ -11,9 +10,10 @@ import org.jetbrains.anko.toast
 import org.wit.archfieldwork3.R
 import org.wit.archfieldwork3.helpers.readImageFromPath
 import org.wit.archfieldwork3.models.SiteModel
+import org.wit.archfieldwork3.views.BaseView
 
 
-class ArchFieldworkView : AppCompatActivity(), AnkoLogger {
+class ArchFieldworkView : BaseView(), AnkoLogger {
 
 
     lateinit var presenter: ArchFieldworkPresenter
@@ -22,10 +22,10 @@ class ArchFieldworkView : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_archfieldwork)
-        toolbarAdd.title = title
-        setSupportActionBar(toolbarAdd)
 
-        presenter = ArchFieldworkPresenter(this)
+        init(toolbarAdd)
+
+        presenter = initPresenter (ArchFieldworkPresenter(this)) as ArchFieldworkPresenter
 
         /*btnAddSite.setOnClickListener {
             if (siteName.text.toString().isEmpty()) {
@@ -40,7 +40,7 @@ class ArchFieldworkView : AppCompatActivity(), AnkoLogger {
         btnAddLocation.setOnClickListener { presenter.doSetLocation() }
     }
 
-    fun showSite(site: SiteModel) {
+    override fun showSite(site: SiteModel) {
         siteName.setText(site.name)
         siteDescription.setText(site.description)
         siteImage.setImageBitmap(readImageFromPath(this, site.image))
@@ -52,7 +52,7 @@ class ArchFieldworkView : AppCompatActivity(), AnkoLogger {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_site, menu)
-        if (presenter.edit) menu.getItem(0).setVisible(true)
+        //if (presenter.edit) menu.getItem(0).setVisible(true)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -78,5 +78,9 @@ class ArchFieldworkView : AppCompatActivity(), AnkoLogger {
             presenter.doActivityResult(requestCode, resultCode, data)
 
         }
+    }
+
+    override fun onBackPressed() {
+        presenter.doCancel()
     }
 }

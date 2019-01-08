@@ -1,32 +1,25 @@
 package org.wit.archfieldwork3.views.sitelist
 
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
-import org.wit.archfieldwork3.views.map.SiteMapView
-import org.wit.archfieldwork3.main.MainApp
 import org.wit.archfieldwork3.models.SiteModel
-import org.wit.archfieldwork3.views.site.ArchFieldworkView
+import org.wit.archfieldwork3.views.BasePresenter
+import org.wit.archfieldwork3.views.BaseView
+import org.wit.archfieldwork3.views.VIEW
 
-class SiteListPresenter (val view: SiteListView){
+class SiteListPresenter (view: BaseView): BasePresenter(view){
 
-    var app: MainApp
-
-    init {
-        app = view.application as MainApp
+    fun doAddSite() {
+        view?.navigateTo(VIEW.SITE)
     }
 
-    fun getSites()=app.sites.findAll()
-
-    fun doAddSite(){
-        view.startActivityForResult<ArchFieldworkView>(0)
+    fun doEditSites(placemark: SiteModel) {
+        view?.navigateTo(VIEW.SITE, 0, "placemark_edit", placemark)
     }
 
-    fun doEditSite(site: SiteModel){
-        view.startActivityForResult(view.intentFor<ArchFieldworkView>().putExtra("site_edit", site),0)
+    fun doShowSitesMap() {
+        view?.navigateTo(VIEW.MAPS)
     }
 
-    fun doShowSitesMap(){
-        view.startActivity<SiteMapView>()
+    fun loadSites() {
+        view?.showSites(app.sites.findAll())
     }
 }

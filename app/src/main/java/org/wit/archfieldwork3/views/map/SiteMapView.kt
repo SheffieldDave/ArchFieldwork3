@@ -1,43 +1,43 @@
 package org.wit.archfieldwork3.views.map
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_site_maps.*
 import kotlinx.android.synthetic.main.content_site_maps.*
 import org.wit.archfieldwork3.R
 import org.wit.archfieldwork3.helpers.readImageFromPath
-import org.wit.archfieldwork3.main.MainApp
 import org.wit.archfieldwork3.models.SiteModel
+import org.wit.archfieldwork3.views.BaseView
 
-class SiteMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
+class SiteMapView : BaseView(), GoogleMap.OnMarkerClickListener {
 
     lateinit var presenter: SiteMapPresenter
+    lateinit var map : GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_maps)
-        setSupportActionBar(toolbarMaps)
-        presenter = SiteMapPresenter(this)
+        super.init(toolbarMaps)
 
+        presenter = initPresenter (SiteMapPresenter(this)) as SiteMapPresenter
 
-        mapView.onCreate(savedInstanceState)
+        mapView.onCreate(savedInstanceState);
         mapView.getMapAsync {
-            presenter.doPopulateMap(it)
+            map = it
+            map.setOnMarkerClickListener(this)
+            presenter.loadSites()
         }
     }
 
-    fun configureMap(){
-
-    }
-    fun showSite(site: SiteModel){
+    override fun showSite(site: SiteModel) {
         currentTitle.text = site.name
         currentDescription.text = site.description
         imageView.setImageBitmap(readImageFromPath(this, site.image))
+    }
+
+    override fun showSites(sites: List<SiteModel>) {
+        presenter.doPopulateMap(map, sites)
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
@@ -69,6 +69,4 @@ class SiteMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
         super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
     }
-
-
 }
