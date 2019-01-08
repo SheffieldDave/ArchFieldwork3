@@ -13,6 +13,15 @@ class SiteMemStore: SiteStore, AnkoLogger{
 
     val sites = ArrayList<SiteModel>()
 
+    fun logAll(){
+        sites.forEach{info("${it}")}
+    }
+
+    override fun findById(id: Long): SiteModel? {
+        val foundSite: SiteModel? = sites.find{it.id ==id}
+        return foundSite
+    }
+
     override fun findAll(): List<SiteModel> {
         return sites
     }
@@ -38,10 +47,6 @@ class SiteMemStore: SiteStore, AnkoLogger{
 
     override fun delete(site: SiteModel) {
         sites.remove(site)
-    }
-
-    fun logAll(){
-        sites.forEach{info("${it}")}
     }
 
 

@@ -36,6 +36,11 @@ class SiteJSONStore : SiteStore, AnkoLogger {
         return sites
     }
 
+    override fun findById(id: Long): SiteModel? {
+        val foundSite: SiteModel? = sites.find{it.id ==id}
+        return foundSite
+    }
+
     override fun create(site: SiteModel) {
         site.id = generateRandomId()
         sites.add(site)
