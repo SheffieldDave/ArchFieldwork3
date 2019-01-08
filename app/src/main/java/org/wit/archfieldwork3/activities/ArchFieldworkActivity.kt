@@ -25,9 +25,9 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
 
     var site = SiteModel()
     lateinit var app : MainApp
-
     val IMAGE_REQUEST = 1
     val LOCATION_REQUEST = 2
+    var edit = false;
 
 
 
@@ -38,7 +38,7 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbarAdd)
 
         app = application as MainApp
-        var edit = false
+
 
         if(intent.hasExtra("site_edit")){
             edit = true
@@ -52,8 +52,7 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
             btnAddSite.setText(R.string.save_site)
 
         }
-
-
+        
         btnAddSite.setOnClickListener(){
             site.name=siteName.text.toString()
             site.description = siteDescription.text.toString()
@@ -71,16 +70,11 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
             }
         }
 
-
-
-
         btnChooseImage.setOnClickListener(){
                 //toast("add Image pressed")
             info("Select image")
             showImagePicker(this, IMAGE_REQUEST)
         }
-
-
 
         btnAddLocation.setOnClickListener{
             var location = Location(49.002405, 12.097464, 15f)
@@ -92,19 +86,20 @@ class ArchFieldworkActivity : AppCompatActivity(), AnkoLogger {
             startActivityForResult(intentFor<MapsActivity>().putExtra("location",location), LOCATION_REQUEST)
         }
 
-
-
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_site, menu)
+        if(edit && menu != null)menu.getItem(0).setVisible(true)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId){
+            R.id.item_delete ->{
+                app.sites.delete(site)
+                finish()
+            }
             R.id.item_cancel ->{
                 finish()
             }

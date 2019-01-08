@@ -36,6 +36,10 @@ class SiteMemStore: SiteStore, AnkoLogger{
 
     }
 
+    override fun delete(site: SiteModel) {
+        sites.remove(site)
+    }
+
     fun logAll(){
         sites.forEach{info("${it}")}
     }

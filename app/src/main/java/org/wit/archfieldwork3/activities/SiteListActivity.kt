@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_site_list.*
 import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.wit.archfieldwork3.R
 import org.wit.archfieldwork3.adapters.ArchFieldworkAdapter
@@ -42,6 +43,7 @@ class SiteListActivity : AppCompatActivity(), SiteListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId){
             R.id.item_add-> startActivityForResult<ArchFieldworkActivity>(0)
+            R.id.item_map-> startActivity<SiteMapsActivity>()
         }
         return super.onOptionsItemSelected(item)
     }

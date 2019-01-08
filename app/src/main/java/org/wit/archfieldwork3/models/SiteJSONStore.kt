@@ -36,15 +36,30 @@ class SiteJSONStore : SiteStore, AnkoLogger {
         return sites
     }
 
-    override fun create(placemark: SiteModel) {
-        placemark.id = generateRandomId()
-        sites.add(placemark)
+    override fun create(site: SiteModel) {
+        site.id = generateRandomId()
+        sites.add(site)
         serialize()
     }
 
 
-    override fun update(placemark: SiteModel) {
-        // todo
+    override fun update(site: SiteModel) {
+        val sitesList = findAll() as ArrayList <SiteModel>
+        var foundSite: SiteModel? = sitesList.find {p -> p.id == site.id}
+        if (foundSite != null) {
+            foundSite.name = site.name
+            foundSite.description = site.description
+            foundSite.image = site.image
+            foundSite.lat = site.lat
+            foundSite.lng = site.lng
+            foundSite.zoom = site.zoom
+        }
+        serialize()
+    }
+
+    override fun delete(site: SiteModel) {
+        sites.remove(site)
+        serialize()
     }
 
     private fun serialize() {

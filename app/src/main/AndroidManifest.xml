@@ -32,6 +32,11 @@
                 android:name=".activities.MapsActivity"
                 android:label="@string/title_activity_maps">
         </activity>
+        <activity
+                android:name=".activities.SiteMapsActivity"
+                android:label="@string/title_activity_site_maps"
+                android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
