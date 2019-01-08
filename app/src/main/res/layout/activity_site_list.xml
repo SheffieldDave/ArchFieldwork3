@@ -19,7 +19,7 @@
                 android:id="@+id/toolbarMain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:titleTextColor="@color/colorPrimary"/>
+                app:titleTextColor="@color/colorWhite"/>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView

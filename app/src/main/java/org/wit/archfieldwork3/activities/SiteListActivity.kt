@@ -42,7 +42,7 @@ class SiteListActivity : AppCompatActivity(), SiteListener {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId){
-            R.id.item_add-> startActivityForResult<ArchFieldworkActivity>(0)
+            R.id.item_add-> startActivityForResult<ArchFieldworkActivity>(200)
             R.id.item_map-> startActivity<SiteMapsActivity>()
         }
         return super.onOptionsItemSelected(item)

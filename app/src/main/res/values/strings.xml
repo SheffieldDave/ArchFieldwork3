@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ArchFieldwork3</string>
+    <string name="app_name">ArchFieldwork</string>
     <string name="button_add_site">Add Site</string>
     <string name="button_add_image">Add Image</string>
     <string name="button_add_location">Add Location</string>
@@ -17,7 +17,7 @@
     <string name="select_site_image">Select site image</string>
     <string name="change_site_image">Change site Image</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_site_maps">SiteMapsActivity</string>
+    <string name="title_activity_site_maps">Map of all Sites</string>
 
 
 </resources>
