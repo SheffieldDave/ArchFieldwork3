@@ -27,8 +27,6 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="600dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -46,7 +44,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.503"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <EditText
                 android:id="@+id/siteDescription"
@@ -60,7 +58,7 @@
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/siteName" />
+                app:layout_constraintTop_toBottomOf="@+id/siteName"/>
 
         <Button
                 android:id="@+id/btnChooseImage"
@@ -73,17 +71,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/siteDescription"/>
 
-        <Button
-                android:id="@+id/btnAddLocation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/button_add_location"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/siteImage"/>
 
         <ImageView
                 android:id="@+id/siteImage"
@@ -96,7 +83,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnChooseImage"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                app:srcCompat="@drawable/ic_launcher_background"/>
 
         <com.google.android.gms.maps.MapView
                 android:id="@+id/mapView"
@@ -109,7 +96,51 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAddLocation" />
+                app:layout_constraintTop_toBottomOf="@+id/siteImage"/>
+
+        <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Lat:"
+                app:layout_constraintBaseline_toBaselineOf="@+id/lat"
+                app:layout_constraintStart_toEndOf="@+id/siteName" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="120dp" app:layout_constraintHorizontal_bias="1.0"/>
+
+        <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Lng:"
+                app:layout_constraintBaseline_toBaselineOf="@+id/lng"
+                app:layout_constraintStart_toEndOf="@+id/siteDescription" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="120dp" app:layout_constraintHorizontal_bias="0.979"/>
+
+        <TextView
+                android:id="@+id/lat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="76dp"
+                android:layout_marginEnd="32dp"
+                android:text="00.000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="1.0"/>
+
+        <TextView
+                android:id="@+id/lng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="32dp"
+                android:text="00.000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/lat" app:layout_constraintHorizontal_bias="0.983"/>
 
     </android.support.constraint.ConstraintLayout>
 

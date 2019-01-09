@@ -33,12 +33,13 @@ class ArchFieldworkView : BaseView(), AnkoLogger {
         mapView.getMapAsync {
             map = it
             presenter.doConfigureMap(map)
+            it.setOnMapClickListener { presenter.doSetLocation() }
         }
 
 
         btnChooseImage.setOnClickListener { presenter.doSelectImage() }
 
-        btnAddLocation.setOnClickListener { presenter.doSetLocation() }
+        //btnAddLocation.setOnClickListener { presenter.doSetLocation() }
 
 
     }
@@ -50,6 +51,8 @@ class ArchFieldworkView : BaseView(), AnkoLogger {
         if (site.image != null) {
             btnChooseImage.setText(R.string.change_site_image)
         }
+        lat.setText("%.6f".format(site.lat))
+        lng.setText("%.6f".format(site.lng))
     }
 
 
@@ -105,10 +108,12 @@ class ArchFieldworkView : BaseView(), AnkoLogger {
     override fun onResume() {
         super.onResume()
         mapView.onResume()
+        presenter.doRestartLocationUpdates()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
     }
+
 }

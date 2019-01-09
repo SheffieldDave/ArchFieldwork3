@@ -1,13 +1,25 @@
 package org.wit.archfieldwork3.helpers
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
 import android.util.Log
+import com.google.android.gms.location.LocationRequest
 
 
 val REQUEST_PERMISSIONS_REQUEST_CODE = 34
+
+@SuppressLint
+fun createDefaultLocationRequest(): LocationRequest{
+    val locationRequest = LocationRequest().apply{
+        interval = 10000
+        fastestInterval = 5000
+        priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+    }
+    return locationRequest
+}
 
 fun checkLocationPermission(activity: Activity): Boolean{
     if(ActivityCompat.checkSelfPermission(activity,Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
