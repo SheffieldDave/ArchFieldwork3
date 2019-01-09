@@ -25,7 +25,7 @@ class ArchFieldworkView : BaseView(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_archfieldwork)
 
-        init(toolbarAdd)
+        super.init(toolbarAdd, true)
 
         presenter = initPresenter (ArchFieldworkPresenter(this)) as ArchFieldworkPresenter
 
@@ -111,9 +111,9 @@ class ArchFieldworkView : BaseView(), AnkoLogger {
         presenter.doRestartLocationUpdates()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    /*override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
-    }
+    }*/
 
 }

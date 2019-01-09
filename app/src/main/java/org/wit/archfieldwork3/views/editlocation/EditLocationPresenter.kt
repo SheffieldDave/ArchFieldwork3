@@ -7,8 +7,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.archfieldwork3.models.Location
+import org.wit.archfieldwork3.views.BasePresenter
+import org.wit.archfieldwork3.views.BaseView
 
-class EditLocationPresenter (val view: EditLocationView){
+class EditLocationPresenter (view: BaseView): BasePresenter(view){
 
     var location = Location()
 

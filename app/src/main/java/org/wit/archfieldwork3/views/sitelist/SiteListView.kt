@@ -2,7 +2,7 @@ package org.wit.archfieldwork3.views.sitelist
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_site_list.*
@@ -18,11 +18,11 @@ class SiteListView : BaseView(), SiteListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_list)
-        init(toolbarMain)
+        init(toolbarMain,false)
 
         presenter = initPresenter(SiteListPresenter(this)) as SiteListPresenter
 
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         presenter.loadSites()
     }

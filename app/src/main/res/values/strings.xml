@@ -21,6 +21,12 @@
     <string name="title_activity_site_maps">Map of all Sites</string>
     <string name="hint_siteName">Site Name</string>
     <string name="hint_siteDescription">Description</string>
-
+    <string name="app_declaration">Application for supporting an exploration of Archaeological Sites of Interest</string>
+    <string name="title_SiteListView">List of Sites</string>
+    <string name="title_Create">Create</string>
+    <string name="title_activity_site_list">Sites</string>
+    <string name="title_activity_site">Site</string>
+    <string name="title_activity_edit_location">Site</string>
+    <string name="title_activity_login">Signup/Login to ArchFieldwork</string>
 
 </resources>
