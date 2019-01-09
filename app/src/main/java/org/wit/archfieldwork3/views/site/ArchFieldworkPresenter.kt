@@ -1,6 +1,14 @@
 package org.wit.archfieldwork3.views.site
 
 import android.content.Intent
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import org.wit.archfieldwork3.helpers.checkLocationPermission
+import org.wit.archfieldwork3.helpers.isPermissionGranted
 import org.wit.archfieldwork3.helpers.showImagePicker
 import org.wit.archfieldwork3.models.Location
 import org.wit.archfieldwork3.models.SiteModel
@@ -8,19 +16,48 @@ import org.wit.archfieldwork3.views.*
 
 class ArchFieldworkPresenter (view: BaseView): BasePresenter(view) {
 
-    //val IMAGE_REQUEST = 1
-    //val LOCATION_REQUEST = 2
+
     var site = SiteModel()
     var defaultLocation = Location(49.002405, 12.097464, 15f)
-    //var app: MainApp
+    var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
     var edit = false;
+    var map: GoogleMap? = null
 
     init {
-        //app = view.application as MainApp
         if (view.intent.hasExtra("site_edit")) {
             edit = true
             site = view.intent.extras.getParcelable<SiteModel>("site_edit")
             view.showSite(site)
+        }else{
+            if (checkLocationPermission(view)){
+                // todo get the current location
+            }
+        }
+    }
+
+    fun doConfigureMap(m: GoogleMap){
+        map = m
+        locationUpdate(site.lat, site.lng)
+    }
+
+    fun locationUpdate(lat: Double, lng: Double){
+        site.lat = lat
+        site.lng = lng
+        site.zoom = 15f
+        map?.clear()
+        map?.uiSettings?.setZoomControlsEnabled(true)
+        val options = MarkerOptions().title(site.name).position(LatLng(site.lat, site.lng))
+        map?.addMarker(options)
+        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(site.lat,site.lng),site.zoom))
+        view?.showSite(site)
+    }
+
+    override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        if(isPermissionGranted(requestCode, grantResults)){
+            //todo get the current location
+        }else{
+            //permissions denied, so use the default location
+            locationUpdate(defaultLocation.lat, defaultLocation.lng)
         }
     }
 
@@ -69,6 +106,8 @@ class ArchFieldworkPresenter (view: BaseView): BasePresenter(view) {
                     site.lat = location.lat
                     site.lng = location.lng
                     site.zoom = location.zoom
+                    locationUpdate(site.lat,site.lng)
+
 
             }
         }

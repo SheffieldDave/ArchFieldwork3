@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_archfieldwork.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
@@ -18,6 +19,7 @@ class ArchFieldworkView : BaseView(), AnkoLogger {
 
     lateinit var presenter: ArchFieldworkPresenter
     var site = SiteModel()
+    lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,17 +29,18 @@ class ArchFieldworkView : BaseView(), AnkoLogger {
 
         presenter = initPresenter (ArchFieldworkPresenter(this)) as ArchFieldworkPresenter
 
-        /*btnAddSite.setOnClickListener {
-            if (siteName.text.toString().isEmpty()) {
-                toast(R.string.enter_site_name_discription)
-            } else {
-                presenter.doAddOrSave(siteName.text.toString(), siteDescription.text.toString())
-            }
-        }*/
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync {
+            map = it
+            presenter.doConfigureMap(map)
+        }
+
 
         btnChooseImage.setOnClickListener { presenter.doSelectImage() }
 
         btnAddLocation.setOnClickListener { presenter.doSetLocation() }
+
+
     }
 
     override fun showSite(site: SiteModel) {
@@ -82,5 +85,30 @@ class ArchFieldworkView : BaseView(), AnkoLogger {
 
     override fun onBackPressed() {
         presenter.doCancel()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
     }
 }
