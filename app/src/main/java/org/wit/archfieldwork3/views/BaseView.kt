@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import org.jetbrains.anko.AnkoLogger
 import org.wit.archfieldwork3.models.SiteModel
 import org.wit.archfieldwork3.views.editlocation.EditLocationView
+import org.wit.archfieldwork3.views.login.LoginView
 import org.wit.archfieldwork3.views.map.SiteMapView
 import org.wit.archfieldwork3.views.site.ArchFieldworkView
 import org.wit.archfieldwork3.views.sitelist.SiteListView
@@ -17,7 +18,7 @@ val IMAGE_REQUEST = 1
 val LOCATION_REQUEST = 2
 
 enum class VIEW {
-    LOCATION, SITE, MAPS, LIST
+    LOCATION, SITE, MAPS, LIST, LOGIN
 }
 
 open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
@@ -31,6 +32,7 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
             VIEW.SITE -> intent = Intent(this, ArchFieldworkView::class.java)
             VIEW.MAPS -> intent = Intent(this, SiteMapView::class.java)
             VIEW.LIST -> intent = Intent(this, SiteListView::class.java)
+            VIEW.LOGIN -> intent = Intent (this, LoginView::class.java)
         }
         if (key != "") {
             intent.putExtra(key, value)

@@ -28,5 +28,7 @@
     <string name="title_activity_site">Site</string>
     <string name="title_activity_edit_location">Site</string>
     <string name="title_activity_login">Signup/Login to ArchFieldwork</string>
+    <string name="menu_showMap">Show Map</string>
+    <string name="menu_logout">Logout</string>
 
 </resources>

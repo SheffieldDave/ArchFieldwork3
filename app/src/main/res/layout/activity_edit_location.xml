@@ -78,10 +78,11 @@
                 android:layout_width="92dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
-                android:layout_marginEnd="44dp"
+                android:layout_marginEnd="16dp"
                 android:text="00.000000"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toEndOf="@+id/textView2"
+                android:layout_marginStart="8dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
