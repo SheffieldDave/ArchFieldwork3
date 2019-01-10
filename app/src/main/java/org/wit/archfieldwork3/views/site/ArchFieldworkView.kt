@@ -4,12 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.gms.maps.GoogleMap
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_archfieldwork.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 import org.wit.archfieldwork3.R
-import org.wit.archfieldwork3.helpers.readImageFromPath
 import org.wit.archfieldwork3.models.SiteModel
 import org.wit.archfieldwork3.views.BaseView
 
@@ -19,20 +18,21 @@ class ArchFieldworkView : BaseView(), AnkoLogger {
 
     lateinit var presenter: ArchFieldworkPresenter
     var site = SiteModel()
-    lateinit var map: GoogleMap
+    //lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_archfieldwork)
 
-        super.init(toolbarAdd, true)
+        //super.
+            init(toolbarAdd, true)
 
         presenter = initPresenter (ArchFieldworkPresenter(this)) as ArchFieldworkPresenter
 
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync {
-            map = it
-            presenter.doConfigureMap(map)
+            //map = it
+            presenter.doConfigureMap(it)
             it.setOnMapClickListener { presenter.doSetLocation() }
         }
 
@@ -47,12 +47,12 @@ class ArchFieldworkView : BaseView(), AnkoLogger {
     override fun showSite(site: SiteModel) {
         siteName.setText(site.name)
         siteDescription.setText(site.description)
-        siteImage.setImageBitmap(readImageFromPath(this, site.image))
+        Glide.with(this).load(site.image).into(siteImage);
         if (site.image != null) {
             btnChooseImage.setText(R.string.change_site_image)
         }
-        lat.setText("%.6f".format(site.lat))
-        lng.setText("%.6f".format(site.lng))
+        lat.setText("%.6f".format(site.location.lat))
+        lng.setText("%.6f".format(site.location.lng))
     }
 
 

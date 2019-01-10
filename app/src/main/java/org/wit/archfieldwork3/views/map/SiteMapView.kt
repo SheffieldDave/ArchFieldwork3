@@ -1,12 +1,12 @@
 package org.wit.archfieldwork3.views.map
 
 import android.os.Bundle
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import kotlinx.android.synthetic.main.activity_site_maps.*
 import kotlinx.android.synthetic.main.content_site_maps.*
 import org.wit.archfieldwork3.R
-import org.wit.archfieldwork3.helpers.readImageFromPath
 import org.wit.archfieldwork3.models.SiteModel
 import org.wit.archfieldwork3.views.BaseView
 
@@ -33,7 +33,7 @@ class SiteMapView : BaseView(), GoogleMap.OnMarkerClickListener {
     override fun showSite(site: SiteModel) {
         currentTitle.text = site.name
         currentDescription.text = site.description
-        imageView.setImageBitmap(readImageFromPath(this, site.image))
+        Glide.with(this).load(site.image).into(imageView);
     }
 
     override fun showSites(sites: List<SiteModel>) {

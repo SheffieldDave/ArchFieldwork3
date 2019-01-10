@@ -1,5 +1,8 @@
 package org.wit.archfieldwork3.views.sitelist
 
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 import org.wit.archfieldwork3.models.SiteModel
 import org.wit.archfieldwork3.views.BasePresenter
 import org.wit.archfieldwork3.views.BaseView
@@ -20,10 +23,13 @@ class SiteListPresenter (view: BaseView): BasePresenter(view){
     }
 
     fun loadSites() {
-        view?.showSites(app.sites.findAll())
+        async(UI) {
+            view?.showSites(app.sites.findAll())
+        }
     }
 
     fun doLogout(){
+        FirebaseAuth.getInstance().signOut()
         view?.navigateTo(VIEW.LOGIN)
     }
 }

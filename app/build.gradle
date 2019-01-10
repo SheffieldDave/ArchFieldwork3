@@ -38,13 +38,20 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation "com.google.code.gson:gson:2.8.5"
     implementation "com.google.android.gms:play-services-location:16.0.0"
+    implementation "org.jetbrains.anko:anko:0.10.7"
 
-    implementation "com.google.firebase:firebase-auth:16.0.5"
+    implementation "androidx.room:room-runtime:2.0.0"
+    kapt "androidx.room:room-compiler:2.0.0"
+
+    implementation "com.google.firebase:firebase-auth:16.1.0"
     implementation "com.google.firebase:firebase-database:16.0.5"
+    implementation "com.google.firebase:firebase-storage:16.0.5"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
-
+    implementation "com.github.bumptech.glide:glide:4.8.0"
+    implementation 'com.google.firebase:firebase-core:16.0.6'
+    
 }

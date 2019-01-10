@@ -10,6 +10,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 import org.wit.archfieldwork3.helpers.checkLocationPermission
 import org.wit.archfieldwork3.helpers.createDefaultLocationRequest
 import org.wit.archfieldwork3.helpers.isPermissionGranted
@@ -46,7 +48,7 @@ class ArchFieldworkPresenter (view: BaseView): BasePresenter(view) {
             override fun onLocationResult(locationResult: LocationResult?) {
                 if (locationResult != null && locationResult.locations != null){
                     val l = locationResult.locations.last()
-                    locationUpdate(l.latitude,l.longitude)
+                    locationUpdate(Location(l.latitude, l.longitude))
                 }
             }
         }
@@ -59,24 +61,23 @@ class ArchFieldworkPresenter (view: BaseView): BasePresenter(view) {
     @SuppressLint("MissingPermission")
     fun doSetCurrentLocation() {
         locationService.lastLocation.addOnSuccessListener {
-            locationUpdate(it.latitude, it.longitude)
+            locationUpdate(Location(it.latitude, it.longitude))
         }
     }
 
     fun doConfigureMap(m: GoogleMap) {
         map = m
-        locationUpdate(site.lat, site.lng)
+        locationUpdate(site.location)
     }
 
-    fun locationUpdate(lat: Double, lng: Double) {
-        site.lat = lat
-        site.lng = lng
-        site.zoom = 15f
+    fun locationUpdate(location: Location) {
+        site.location = location
+        site.location.zoom = 15f
         map?.clear()
         map?.uiSettings?.setZoomControlsEnabled(true)
-        val options = MarkerOptions().title(site.name).position(LatLng(site.lat, site.lng))
+        val options = MarkerOptions().title(site.name).position(LatLng(site.location.lat, site.location.lng))
         map?.addMarker(options)
-        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(site.lat, site.lng), site.zoom))
+        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(site.location.lat, site.location.lng), site.location.zoom))
         view?.showSite(site)
     }
 
@@ -84,19 +85,21 @@ class ArchFieldworkPresenter (view: BaseView): BasePresenter(view) {
         if (isPermissionGranted(requestCode, grantResults)) {
             doSetCurrentLocation()
         } else {
-            locationUpdate(defaultLocation.lat, defaultLocation.lng)
+            locationUpdate(defaultLocation)
         }
     }
 
     fun doAddOrSave(siteName: String, siteDescription: String) {
         site.name = siteName
         site.description = siteDescription
-        if (edit) {
-            app.sites.update(site)
-        } else {
-            app.sites.create(site)
+        async(UI) {
+            if (edit) {
+                app.sites.update(site)
+            } else {
+                app.sites.create(site)
+            }
+            view?.finish()
         }
-        view?.finish()
     }
 
     fun doCancel() {
@@ -104,8 +107,10 @@ class ArchFieldworkPresenter (view: BaseView): BasePresenter(view) {
     }
 
     fun doDelete() {
-        app.sites.delete(site)
-        view?.finish()
+        async(UI) {
+            app.sites.delete(site)
+            view?.finish()
+        }
     }
 
     fun doSelectImage() {
@@ -115,7 +120,7 @@ class ArchFieldworkPresenter (view: BaseView): BasePresenter(view) {
     }
 
     fun doSetLocation() {
-        view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(site.lat, site.lng, site.zoom))
+        view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(site.location.lat, site.location.lng, site.location.zoom))
     }
 
     override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
@@ -125,11 +130,9 @@ class ArchFieldworkPresenter (view: BaseView): BasePresenter(view) {
                 view?.showSite(site)
             }
             LOCATION_REQUEST -> {
-                val location = data.extras.getParcelable<org.wit.archfieldwork3.models.Location>("location")
-                site.lat = location.lat
-                site.lng = location.lng
-                site.zoom = location.zoom
-                locationUpdate(site.lat, site.lng)
+                val location = data.extras.getParcelable<Location>("location")
+                site.location = location
+                locationUpdate(location)
 
 
             }
