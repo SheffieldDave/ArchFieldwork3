@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1076308244688",
+    "firebase_url": "https://archfieldwork-1d64f.firebaseio.com",
+    "project_id": "archfieldwork-1d64f",
+    "storage_bucket": "archfieldwork-1d64f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076308244688:android:1a26f554541cadfb",
+        "android_client_info": {
+          "package_name": "org.wit.archfieldwork3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076308244688-ecjiqt8v5t587gg87k0o12j87irm97p6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.wit.archfieldwork3",
+            "certificate_hash": "e2a0c39fb21a4b72175965ef57cf21154d3975b8"
+          }
+        },
+        {
+          "client_id": "1076308244688-u9b1h5n9svp4fdvphfsjp1hggtqff66p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.wit.archfieldwork3",
+            "certificate_hash": "7e206309e577553b6fecc432923cc38dc7b81599"
+          }
+        },
+        {
+          "client_id": "1076308244688-n4fac2cl2csfgmu54v7d4oneteqkhrjf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-72C8MGMWhUOvKmGHAYjkyzkeTi7yEbI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076308244688-n4fac2cl2csfgmu54v7d4oneteqkhrjf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
