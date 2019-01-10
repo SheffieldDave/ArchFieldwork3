@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.wit.archfieldwork3.R
 import org.wit.archfieldwork3.views.login.LoginView
-import org.wit.archfieldwork3.views.sitelist.SiteListView
 
 class SplashScreenActivity : AppCompatActivity() {
 
