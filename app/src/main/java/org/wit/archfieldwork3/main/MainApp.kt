@@ -16,6 +16,7 @@ class MainApp: Application(), AnkoLogger {
         //sites = SiteMemStore()
         //sites = SiteJSONStore(applicationContext)
         sites = SiteFireStore(applicationContext)
+
         info ("ArchFieldwork Started (MainApp)")
 
     }
