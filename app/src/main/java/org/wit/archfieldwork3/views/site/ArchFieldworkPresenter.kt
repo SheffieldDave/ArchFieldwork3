@@ -2,6 +2,7 @@ package org.wit.archfieldwork3.views.site
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.provider.Contacts
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -17,6 +18,8 @@ import org.wit.archfieldwork3.helpers.showImagePicker
 import org.wit.archfieldwork3.models.Location
 import org.wit.archfieldwork3.models.SiteModel
 import org.wit.archfieldwork3.views.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 
 class ArchFieldworkPresenter (view: BaseView): BasePresenter(view) {
 
@@ -91,12 +94,14 @@ class ArchFieldworkPresenter (view: BaseView): BasePresenter(view) {
     fun doAddOrSave(siteName: String, siteDescription: String) {
         site.name = siteName
         site.description = siteDescription
-        if (edit) {
-            app.sites.update(site)
-        } else {
-            app.sites.create(site)
+        async(UI) {
+            if (edit) {
+                app.sites.update(site)
+            } else {
+                app.sites.create(site)
+            }
+            view?.finish()
         }
-        view?.finish()
     }
 
     fun doCancel() {
@@ -104,8 +109,10 @@ class ArchFieldworkPresenter (view: BaseView): BasePresenter(view) {
     }
 
     fun doDelete() {
-        app.sites.delete(site)
-        view?.finish()
+        async(UI) {
+            app.sites.delete(site)
+            view?.finish()
+        }
     }
 
     fun doSelectImage() {

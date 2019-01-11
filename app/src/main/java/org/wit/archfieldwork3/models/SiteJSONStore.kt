@@ -32,23 +32,23 @@ class SiteJSONStore : SiteStore, AnkoLogger {
         }
     }
 
-    override fun findAll(): MutableList<SiteModel> {
+    suspend override fun findAll(): MutableList<SiteModel> {
         return sites
     }
 
-    override fun findById(id: Long): SiteModel? {
+    suspend override fun findById(id: Long): SiteModel? {
         val foundSite: SiteModel? = sites.find{it.id ==id}
         return foundSite
     }
 
-    override fun create(site: SiteModel) {
+    suspend override fun create(site: SiteModel) {
         site.id = generateRandomId()
         sites.add(site)
         serialize()
     }
 
 
-    override fun update(site: SiteModel) {
+    suspend override fun update(site: SiteModel) {
         val sitesList = findAll() as ArrayList <SiteModel>
         var foundSite: SiteModel? = sitesList.find {p -> p.id == site.id}
         if (foundSite != null) {
@@ -62,7 +62,7 @@ class SiteJSONStore : SiteStore, AnkoLogger {
         serialize()
     }
 
-    override fun delete(site: SiteModel) {
+    suspend override fun delete(site: SiteModel) {
         sites.remove(site)
         serialize()
     }

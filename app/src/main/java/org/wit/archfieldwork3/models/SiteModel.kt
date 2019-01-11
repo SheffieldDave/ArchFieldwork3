@@ -2,10 +2,13 @@ package org.wit.archfieldwork3.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 
 @Parcelize
-data class SiteModel(var id: Long = 0,
+@Entity
+data class SiteModel(@PrimaryKey(autoGenerate = true)var id: Long = 0,
                      var name:String = "",
                      var description:String = "",
                      var image: String = "",
